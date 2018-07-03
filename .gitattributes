@@ -1,0 +1,8 @@
+# Automatically detect & normalise text files that aren't already specified below
+* text=auto
+
+# Normalise line endings on checkin (set "text" attribute)
+*.js        text
+*.html      text
+*.txt       text
+*.md        text
