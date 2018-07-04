@@ -28,4 +28,4 @@ If applicable, add screenshots to help explain your problem.
 
 **Additional context**
 Add any other context about the problem here.
-For example - does the issue occur on multiple different PHP / OS versions or just one in particular?
+For example - does the issue occur on multiple different JavaScript / OS versions or just one in particular?
