@@ -28,7 +28,7 @@ if (file.name) {
         failure: function() { },
         progress: function() { },
         success: function(e) {
-            console.log("Converted " + baseEndpoint + e.previewPath);
+            console.log("Converted " + e.previewPath);
         }
     });
 }
