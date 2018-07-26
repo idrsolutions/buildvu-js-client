@@ -17,8 +17,7 @@ It functions as an easy to use library that lets you use [BuildVu](https://www.i
 # Usage #
 
 ```
-var baseEndpoint = "http://localhost:8080/microservice-example/";
-var endpoint = baseEndpoint + "buildvu";
+var endpoint = "http://localhost:8080/microservice-example/buildvu";
 
 var file = document.getElementById('file-input').files[0];
 if (file.name) {
