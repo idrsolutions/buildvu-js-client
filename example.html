@@ -37,11 +37,10 @@
 
     function successListener(e) {
         writeMessage(JSON.stringify(e));
-        writeMessage("\nConverted " + baseEndpoint + e.previewPath + "\n\n");
+        writeMessage("\nConverted " + e.previewUrl + "\n\n");
     }
-
-    var baseEndpoint = "http://localhost:8080/buildvu-microservice-example-1.0.0-alpha/";
-    var endpoint = baseEndpoint + "buildvu";
+    
+    var endpoint = "http://localhost:8080/microservice-example/buildvu";
 
     document.getElementById("submit").addEventListener('click', function() {
         var file = document.getElementById('file').files[0];
