@@ -59,10 +59,17 @@
 
         return {
             convert: function(params) {
+                
+                var isUrlInput;
+                
                 if (!params.endpoint) {
                     throw Error('Missing endpoint');
                 }
-                if (!params.file || !params.file.name) {
+                if (params.file && params.file.name) {
+                    isUrlInput = false;
+                } else if (params.conversionUrl) {
+                    isUrlInput = true;
+                } else {
                     throw Error('Missing file');
                 }
                 if (params.success && typeof params.success === "function") {
@@ -78,7 +85,7 @@
                 var xhr = new XMLHttpRequest();
                 if (xhr.upload) {
                     xhr.upload.addEventListener("progress", function(e) {
-                        if (progress) {
+                        if (progress && !isUrlInput) {
                             progress({
                                 state: 'uploading',
                                 loaded: e.loaded,
@@ -101,7 +108,17 @@
 
                     xhr.open("POST", params.endpoint, true);
                     var data = new FormData();
-                    data.append('file', params.file);
+                    
+                    if (params.filename) {
+                        data.append("filename", params.filename);
+                    }
+                    
+                    if (isUrlInput) {
+                        data.append("conversionUrl", params.conversionUrl);
+                    } else {
+                        data.append('file', params.file);
+                    }
+                    
                     if (params.parameters) {
                         for (var prop in params.parameters) {
                             if (params.parameters.hasOwnProperty(prop)) {
