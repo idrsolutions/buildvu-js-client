@@ -59,9 +59,9 @@
 
         return {
             convert: function(params) {
-                
+
                 var isUrlInput;
-                
+
                 if (!params.endpoint) {
                     throw Error('Missing endpoint');
                 }
@@ -100,6 +100,7 @@
                                 doPoll(JSON.parse(xhr.responseText).uuid, params.endpoint);
                             } else {
                                 if (failure) {
+                                  console.log(e);
                                     failure("Connection error");
                                 }
                             }
@@ -108,17 +109,17 @@
 
                     xhr.open("POST", params.endpoint, true);
                     var data = new FormData();
-                    
-                    if (params.filename) {
-                        data.append("filename", params.filename);
-                    }
-                    
+
                     if (isUrlInput) {
-                        data.append("conversionUrl", params.conversionUrl);
+                      data.append("input", "download");
+                        data.append("url", params.conversionUrl);
                     } else {
+                        data.append("input", "upload");
                         data.append('file', params.file);
                     }
-                    
+
+                    console.log(data);
+
                     if (params.parameters) {
                         for (var prop in params.parameters) {
                             if (params.parameters.hasOwnProperty(prop)) {
