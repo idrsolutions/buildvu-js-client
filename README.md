@@ -26,10 +26,8 @@ if (file.name) {
         endpoint: endpoint,
         // Upload local file.
         file: file,
-        // Convert file from url (file takes precedence over this option, so remove file if you wish to use this option).
+        // Convert file from url (file takes precedence over this option).
         conversionUrl: "http://path.to/file.pdf",
-        // (Optional) the filename you wish to pass to the server.
-        filename: "myCustomFilename.pdf",
         failure: function() { },
         progress: function() { },
         success: function(e) {
