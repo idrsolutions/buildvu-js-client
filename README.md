@@ -16,14 +16,18 @@ It functions as an easy to use library that lets you use [BuildVu](https://www.i
 
 # Usage #
 
-```
+```javascript
 var endpoint = "http://localhost:8080/microservice-example/buildvu";
 
 var file = document.getElementById('file-input').files[0];
+
 if (file.name) {
     BuildVuClient.convert({
         endpoint: endpoint,
+        // Upload local file.
         file: file,
+        // Convert file from url (file takes precedence over this option).
+        conversionUrl: "http://path.to/file.pdf",
         failure: function() { },
         progress: function() { },
         success: function(e) {

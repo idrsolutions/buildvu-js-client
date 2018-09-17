@@ -4,13 +4,28 @@
     <meta charset="UTF-8">
     <title>BuildVu Client</title>
     <script src="buildvu-client.js" type="text/javascript"></script>
+
+    <style>
+        .input-div {
+            margin: 10px;
+        }
+    </style>
+
 </head>
 <body>
 
-<input id="file" type="file" />
-<input id="submit" type="submit" value="Process File" />
-<input id="clear" type="button" value="Clear" />
-<div id="consoleDiv" style="font-family: 'Courier New', Courier, monospace"></div>
+    <div class="input-div">
+        <span>Convert from local file:</span>
+        <input id="file" type="file" />
+        <br/><br/>
+        <span>Convert file from url:</span>
+        <input id="url" type="text" />
+    </div>
+    <div class="input-div">
+        <input id="submit" type="submit" value="Process File" />
+        <input id="clear" type="button" value="Clear" />
+    </div>
+    <div id="consoleDiv" style="font-family: 'Courier New', Courier, monospace"></div>
 
 
 <script type="text/javascript">
@@ -39,20 +54,31 @@
         writeMessage(JSON.stringify(e));
         writeMessage("\nConverted " + e.previewUrl + "\n\n");
     }
-    
+
     var endpoint = "http://localhost:8080/microservice-example/buildvu";
 
     document.getElementById("submit").addEventListener('click', function() {
+        var url = document.getElementById("url").value;
         var file = document.getElementById('file').files[0];
-        if (file.name) {
-            BuildVuClient.convert({
-                endpoint: endpoint,
-                file: file,
-                progress: progressListener,
-                success: successListener,
-                failure: failureListener
-            });
+
+        var params = {};
+
+        if (file !== undefined && file.name) {
+            params.file = file;
+        } else if (url) {
+            params.conversionUrl = url;
+        } else {
+            writeMessage("No file input!");
+            return;
         }
+
+        BuildVuClient.convert(
+            Object.assign({}, params, {
+            endpoint: endpoint,
+            progress: progressListener,
+            success: successListener,
+            failure: failureListener
+        }));
     });
 
 </script>
