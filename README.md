@@ -1,8 +1,8 @@
 # BuildVu JavaScript Client #
 
-The BuildVu JavaScript Client provides an easy way to try out IDRsolutions' [BuildVu Microservice Example](https://github.com/idrsolutions/buildvu-microservice-example).
+Convert PDF to HTML5 or SVG with JavaScript, using the BuildVu JavaScript Client to interact with IDRsolutions' [BuildVu Microservice Example](https://github.com/idrsolutions/buildvu-microservice-example).
 
-It functions as an easy to use library that lets you use [BuildVu](https://www.idrsolutions.com/buildvu/) from JavaScript.
+The BuildVu Microservice Example is an open source project that allows you to convert PDF to HTML5 or SVG by running [BuildVu](https://www.idrsolutions.com/buildvu/) as an online service.
 
 -----
 
