@@ -28,6 +28,8 @@ if (file.name) {
         file: file,
         // Convert file from url (file takes precedence over this option).
         conversionUrl: "http://path.to/file.pdf",
+        // [optional] url to have request sent to when the conversion finishes
+        callbackUrl: "http://listener.url/",
         failure: function() { },
         progress: function() { },
         success: function(e) {
