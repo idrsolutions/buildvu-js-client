@@ -96,8 +96,14 @@
 
                     xhr.onreadystatechange = function (e) {
                         if (xhr.readyState === 4) {
-                            if (xhr.status === 200) {
+                            if (xhr.status === 200 && !params.callbackUrl) {
                                 doPoll(JSON.parse(xhr.responseText).uuid, params.endpoint);
+                            } else if (params.callbackUrl) {
+                                progress({
+                                    state: 'uploaded',
+                                    uuid: JSON.parse(xhr.responseText).uuid
+                                })
+                                console.log();
                             } else {
                                 if (failure) {
                                   console.log(e);
