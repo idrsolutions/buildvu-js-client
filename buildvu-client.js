@@ -111,7 +111,7 @@
                     var data = new FormData();
 
                     if (isUrlInput) {
-						data.append('input', 'download');
+                        data.append('input', 'download');
                         data.append("url", params.conversionUrl);
                     } else {
                         data.append('input', 'upload');
