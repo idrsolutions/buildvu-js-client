@@ -20,6 +20,9 @@
         <br/><br/>
         <span>Convert file from url:</span>
         <input id="url" type="text" />
+        <br/><br/>
+        <span>Url for a callback request:</span>
+        <input id="callbackUrl" type="text" />
     </div>
     <div class="input-div">
         <input id="submit" type="submit" value="Process File" />
@@ -55,11 +58,12 @@
         writeMessage("\nConverted " + e.previewUrl + "\n\n");
     }
 
-    var endpoint = "http://localhost:8080/microservice-example/buildvu";
+    var endpoint = 'http://localhost:8080/buildvu/buildvu';
 
-    document.getElementById("submit").addEventListener('click', function() {
-        var url = document.getElementById("url").value;
+    document.getElementById('submit').addEventListener('click', function() {
+        var url = document.getElementById('url').value;
         var file = document.getElementById('file').files[0];
+        var callbackUrl = document.getElementById('callbackUrl').value;
 
         var params = {};
 
@@ -70,6 +74,10 @@
         } else {
             writeMessage("No file input!");
             return;
+        }
+        
+        if (callbackUrl) {
+            params.callbackUrl = callbackUrl;
         }
 
         BuildVuClient.convert(

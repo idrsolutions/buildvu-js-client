@@ -111,12 +111,16 @@
                     var data = new FormData();
 
                     if (isUrlInput) {
-                      data.append("input", "download");
+						data.append('input', 'download');
                         data.append("url", params.conversionUrl);
                     } else {
-                        data.append("input", "upload");
+                        data.append('input', 'upload');
                         data.append('file', params.file);
                     }
+					
+					if (params.callbackUrl) {
+						data.append('callbackUrl', params.callbackUrl);
+					}
 
                     console.log(data);
 
