@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-(function() {
-    window.BuildVuClient = (function() {
+(function () {
+    window.BuildVuClient = (function () {
 
         var progress, success, failure;
 
-        var doPoll = function(uuid, endpoint) {
+        var doPoll = function (uuid, endpoint) {
             var req, retries = 0;
 
             var poll = setInterval(function () {
@@ -58,19 +58,12 @@
         };
 
         return {
-            convert: function(params) {
-
-                var isUrlInput;
+            UPLOAD: 'upload',
+            DOWNLOAD: 'download',
+            convert: function (params) {
 
                 if (!params.endpoint) {
                     throw Error('Missing endpoint');
-                }
-                if (params.file && params.file.name) {
-                    isUrlInput = false;
-                } else if (params.conversionUrl) {
-                    isUrlInput = true;
-                } else {
-                    throw Error('Missing file');
                 }
                 if (params.success && typeof params.success === "function") {
                     success = params.success;
@@ -84,8 +77,8 @@
 
                 var xhr = new XMLHttpRequest();
                 if (xhr.upload) {
-                    xhr.upload.addEventListener("progress", function(e) {
-                        if (progress && !isUrlInput) {
+                    xhr.upload.addEventListener("progress", function (e) {
+                        if (progress) {
                             progress({
                                 state: 'uploading',
                                 loaded: e.loaded,
@@ -96,17 +89,13 @@
 
                     xhr.onreadystatechange = function (e) {
                         if (xhr.readyState === 4) {
-                            if (xhr.status === 200 && !params.callbackUrl) {
-                                doPoll(JSON.parse(xhr.responseText).uuid, params.endpoint);
-                            } else if (params.callbackUrl) {
-                                progress({
-                                    state: 'uploaded',
-                                    uuid: JSON.parse(xhr.responseText).uuid
-                                })
-                                console.log();
+                            if (xhr.status === 200) {
+                                if (!params.parameters.callbackUrl || progress || success) {
+                                    doPoll(JSON.parse(xhr.responseText).uuid, params.endpoint);
+                                }
                             } else {
                                 if (failure) {
-                                  console.log(e);
+                                    console.log(e);
                                     failure("Connection error");
                                 }
                             }
@@ -116,23 +105,9 @@
                     xhr.open("POST", params.endpoint, true);
                     var data = new FormData();
 
-                    if (isUrlInput) {
-                        data.append('input', 'download');
-                        data.append("url", params.conversionUrl);
-                    } else {
-                        data.append('input', 'upload');
-                        data.append('file', params.file);
-                    }
-					
-					if (params.callbackUrl) {
-						data.append('callbackUrl', params.callbackUrl);
-					}
-
-                    console.log(data);
-
                     if (params.parameters) {
                         for (var prop in params.parameters) {
-                            if (params.parameters.hasOwnProperty(prop)) {
+                            if (params.parameters.hasOwnProperty(prop) && params.parameters[prop] !== undefined) {
                                 data.append(prop, params.parameters[prop]);
                             }
                         }
@@ -140,7 +115,7 @@
                     xhr.send(data);
                 }
             }
-        }
+        };
     })();
 
 })();

@@ -16,13 +16,13 @@
 
     <div class="input-div">
         <span>Convert from local file:</span>
-        <input id="file" type="file" />
+        <input id="file" class="dynamic-input" type="file" />
         <br/><br/>
         <span>Convert file from url:</span>
-        <input id="url" type="text" />
+        <input id="url" class="dynamic-input" type="text" />
         <br/><br/>
-        <span>Url for a callback request:</span>
-        <input id="callbackUrl" type="text" />
+        <span>[Optional] Url for a callback request:</span>
+        <input id="callbackUrl" class="dynamic-input" type="text" />
     </div>
     <div class="input-div">
         <input id="submit" type="submit" value="Process File" />
@@ -64,29 +64,29 @@
         var url = document.getElementById('url').value;
         var file = document.getElementById('file').files[0];
         var callbackUrl = document.getElementById('callbackUrl').value;
-
-        var params = {};
-
-        if (file !== undefined && file.name) {
-            params.file = file;
-        } else if (url) {
-            params.conversionUrl = url;
-        } else {
-            writeMessage("No file input!");
+        var input = file ? BuildVuClient.UPLOAD : BuildVuClient.DOWNLOAD;
+        
+        if (!((file !== undefined && file.name) || url)) {
+            writeMessage('No file input!');
             return;
         }
-        
-        if (callbackUrl) {
-            params.callbackUrl = callbackUrl;
-        }
 
-        BuildVuClient.convert(
-            Object.assign({}, params, {
+        var params = {
             endpoint: endpoint,
+            parameters: {
+                input: input,
+                file: file,
+                url: url,
+                callbackUrl: callbackUrl
+            },
             progress: progressListener,
             success: successListener,
             failure: failureListener
-        }));
+        };
+        
+        BuildVuClient.convert(
+            Object.assign({}, params)
+        );
     });
 
 </script>
