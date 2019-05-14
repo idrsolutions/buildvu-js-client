@@ -19,22 +19,30 @@ The BuildVu Microservice Example is an open source project that allows you to co
 ```javascript
 var endpoint = "http://localhost:8080/microservice-example/buildvu";
 
+//Convert the attached file
 var file = document.getElementById('file-input').files[0];
+//Convert file from url (file takes precedence over this option).
+var url = document.getElementById('url-input').value;
 
-if (file.name) {
-    BuildVuClient.convert({
-        endpoint: endpoint,
-        // Upload local file.
+//Upload is used when a file uploaded to the server
+//Download is used when the server downloads from the url
+var input = file ? BuildVuClient.UPLOAD : BuildVuClient.DOWNLOAD;
+
+BuildVuClient.convert({
+    endpoint: endpoint,
+    //Parameters are the API parameters that will be sent to the server
+    //See https://github.com/idrsolutions/buildvu-microservice-example/blob/master/API.md
+    parameters: {
+        input: input,
         file: file,
-        // Convert file from url (file takes precedence over this option).
-        conversionUrl: "http://path.to/file.pdf",
-        failure: function() { },
-        progress: function() { },
-        success: function(e) {
-            console.log("Converted " + e.previewUrl);
-        }
-    });
-}
+        url: url
+    },
+    progress: function() { },
+    success: function(e) {
+        console.log("Converted " + e.previewUrl);
+    },
+    failure: function() { }
+});
 ```
 
 -----

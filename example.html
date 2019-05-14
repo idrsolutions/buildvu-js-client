@@ -20,6 +20,9 @@
         <br/><br/>
         <span>Convert file from url:</span>
         <input id="url" type="text" />
+        <br/><br/>
+        <span>[Optional] Url for a callback request:</span>
+        <input id="callbackUrl" type="text" />
     </div>
     <div class="input-div">
         <input id="submit" type="submit" value="Process File" />
@@ -55,30 +58,31 @@
         writeMessage("\nConverted " + e.previewUrl + "\n\n");
     }
 
-    var endpoint = "http://localhost:8080/microservice-example/buildvu";
+    var endpoint = 'http://localhost:8080/microservice-example/buildvu';
 
-    document.getElementById("submit").addEventListener('click', function() {
-        var url = document.getElementById("url").value;
+    document.getElementById('submit').addEventListener('click', function() {
+        var url = document.getElementById('url').value;
         var file = document.getElementById('file').files[0];
-
-        var params = {};
-
-        if (file !== undefined && file.name) {
-            params.file = file;
-        } else if (url) {
-            params.conversionUrl = url;
-        } else {
-            writeMessage("No file input!");
+        var callbackUrl = document.getElementById('callbackUrl').value;
+        var input = file ? BuildVuClient.UPLOAD : BuildVuClient.DOWNLOAD;
+        
+        if (!((file !== undefined && file.name) || url)) {
+            writeMessage('No file input!');
             return;
         }
 
-        BuildVuClient.convert(
-            Object.assign({}, params, {
+        BuildVuClient.convert({
             endpoint: endpoint,
+            parameters: {
+                input: input,
+                file: file,
+                url: url,
+                callbackUrl: callbackUrl
+            },
             progress: progressListener,
             success: successListener,
             failure: failureListener
-        }));
+        });
     });
 
 </script>
