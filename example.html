@@ -71,7 +71,7 @@
             return;
         }
 
-        var params = {
+        BuildVuClient.convert({
             endpoint: endpoint,
             parameters: {
                 input: input,
@@ -82,11 +82,7 @@
             progress: progressListener,
             success: successListener,
             failure: failureListener
-        };
-        
-        BuildVuClient.convert(
-            Object.assign({}, params)
-        );
+        });
     });
 
 </script>
