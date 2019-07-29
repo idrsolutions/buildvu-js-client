@@ -29,7 +29,7 @@ var url = document.getElementById('url-input').value;
 var input = file ? BuildVuClient.UPLOAD : BuildVuClient.DOWNLOAD;
 
 BuildVuClient.convert({
-    endpoint: endpoint,
+    endpoint: endpoint + '/buildvu',
     //Parameters are the API parameters that will be sent to the server
     //See https://github.com/idrsolutions/buildvu-microservice-example/blob/master/API.md
     parameters: {
