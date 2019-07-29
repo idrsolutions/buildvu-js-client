@@ -58,7 +58,7 @@
         writeMessage("\nConverted " + e.previewUrl + "\n\n");
     }
 
-    var endpoint = 'http://localhost:8080/microservice-example/buildvu';
+    var endpoint = 'http://localhost:8080/microservice-example';
 
     document.getElementById('submit').addEventListener('click', function() {
         var url = document.getElementById('url').value;
@@ -72,7 +72,7 @@
         }
 
         BuildVuClient.convert({
-            endpoint: endpoint,
+            endpoint: endpoint + '/buildvu',
             parameters: {
                 input: input,
                 file: file,
