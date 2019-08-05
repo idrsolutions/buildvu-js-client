@@ -51,7 +51,7 @@
                             req = null;
                         }
                     };
-                    req.open("GET", endpoint + "?uuid=" + uuid, true);
+                    req.open("GET", endpoint + "buildvu" + "?uuid=" + uuid , true);
                     req.send();
                 }
             }, 500);
@@ -102,7 +102,7 @@
                         }
                     };
 
-                    xhr.open("POST", params.endpoint, true);
+                    xhr.open("POST", params.endpoint + "buildvu", true);
                     var data = new FormData();
 
                     if (params.parameters) {
