@@ -39,7 +39,7 @@ BuildVuClient.convert({
     },
     progress: function() { },
     success: function(e) {
-        console.log("Converted " + e.previewUrl);
+        console.log("Converted " + e.downloadUrl);
     },
     failure: function() { }
 });
