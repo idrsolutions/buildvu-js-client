@@ -87,20 +87,29 @@
                         }
                     }, false);
 
-                    xhr.onreadystatechange = function (e) {
-                        if (xhr.readyState === 4) {
-                            if (xhr.status === 200) {
-                                if (!params.parameters.callbackUrl || progress || success) {
-                                    doPoll(JSON.parse(xhr.responseText).uuid, params.endpoint);
+                        xhr.onreadystatechange = function (e) {
+                                if (xhr.readyState === 4) {
+                                    if (xhr.status === 200) {
+                                        if (!params.parameters.callbackUrl || progress || success) {
+                                            doPoll(JSON.parse(xhr.responseText).uuid, params.endpoint);
+                                        }
+                                    } else {
+                                        if (failure) {
+                                            try{
+                                                a= JSON.parse(xhr.responseText);
+                                                if (a.hasOwnProperty("error")) {
+                                                    failure(a.error);
+                                                } else {
+                                                failure("Connection error");
+                                                }
+                                                } catch(e) {
+                                            console.log(e);
+                                            failure("Connection error");
+                                            }
+                                        }
+                                    }
                                 }
-                            } else {
-                                if (failure) {
-                                    console.log(e);
-                                    failure("Connection error");
-                                }
-                            }
-                        }
-                    };
+                        };
 
                     xhr.open("POST", params.endpoint + "buildvu", true);
                     var data = new FormData();
