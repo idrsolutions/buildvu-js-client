@@ -17,7 +17,7 @@ The BuildVu Microservice Example is an open source project that allows you to co
 # Usage #
 
 ```javascript
-var endpoint = "http://localhost:8080/microservice-example/buildvu";
+var endpoint = "http://localhost:8080/microservice-example/";
 
 //Convert the attached file
 var file = document.getElementById('file-input').files[0];
@@ -39,7 +39,7 @@ BuildVuClient.convert({
     },
     progress: function() { },
     success: function(e) {
-        console.log("Converted " + e.previewUrl);
+        console.log("Converted " + e.downloadUrl);
     },
     failure: function() { }
 });
