@@ -87,28 +87,27 @@
                         }
                     }, false);
 
-                    xhr.onreadystatechange = function (e) {
-                            if (xhr.readyState === 4) {
-                                if (xhr.status === 200) {
-                                    if (!params.parameters.callbackUrl || progress || success) {
-                                        doPoll(JSON.parse(xhr.responseText).uuid, params.endpoint);
-                                    }
-                                } else {
-                                    if (failure) {
-                                        try {
-                                            parsedResponse = JSON.parse(xhr.responseText);
-                                            if (parsedResponse.hasOwnProperty("error")) {
-                                                failure(parsedResponse.error);
-                                            } else {
-                                                failure("Connection error");
-                                            }
-                                        } catch(e) {
-                                            console.log(e);
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === 4) {
+                            if (xhr.status === 200) {
+                                if (!params.parameters.callbackUrl || progress || success) {
+                                    doPoll(JSON.parse(xhr.responseText).uuid, params.endpoint);
+                                }
+                            } else {
+                                if (failure) {
+                                    try {
+                                        var parsedResponse = JSON.parse(xhr.responseText);
+                                        if (parsedResponse.hasOwnProperty("error")) {
+                                            failure(parsedResponse.error);
+                                        } else {
                                             failure("Connection error");
                                         }
+                                    } catch (e) {
+                                        failure("Connection error");
                                     }
                                 }
                             }
+                        }
                     };
 
                     xhr.open("POST", params.endpoint + "buildvu", true);
