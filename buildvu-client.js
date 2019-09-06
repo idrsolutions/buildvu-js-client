@@ -44,7 +44,7 @@
                                 if (retries > 3) {
                                     clearInterval(poll);
                                     if (failure) {
-                                        failure("Connection error");
+                                        failure("Connection error while polling status.");
                                     }
                                 }
                             }
@@ -100,10 +100,10 @@
                                         if (parsedResponse.hasOwnProperty("error")) {
                                             failure(parsedResponse.error);
                                         } else {
-                                            failure("Connection error");
+                                            failure("Connection error. Status: " + xhr.status + ". Response: " + xhr.responseText);
                                         }
                                     } catch (e) {
-                                        failure("Connection error");
+                                        failure("Connection error. Status: " + xhr.status + ". Response: " + xhr.responseText);
                                     }
                                 }
                             }
