@@ -44,7 +44,7 @@
                                 if (retries > 3) {
                                     clearInterval(poll);
                                     if (failure) {
-                                        failure("Connection error");
+                                        failure("Connection error while polling status.");
                                     }
                                 }
                             }
@@ -87,7 +87,7 @@
                         }
                     }, false);
 
-                    xhr.onreadystatechange = function (e) {
+                    xhr.onreadystatechange = function () {
                         if (xhr.readyState === 4) {
                             if (xhr.status === 200) {
                                 if (!params.parameters.callbackUrl || progress || success) {
@@ -95,8 +95,16 @@
                                 }
                             } else {
                                 if (failure) {
-                                    console.log(e);
-                                    failure("Connection error");
+                                    try {
+                                        var parsedResponse = JSON.parse(xhr.responseText);
+                                        if (parsedResponse.hasOwnProperty("error")) {
+                                            failure(parsedResponse.error);
+                                        } else {
+                                            failure("Connection error. Status: " + xhr.status + ". Response: " + xhr.responseText);
+                                        }
+                                    } catch (e) {
+                                        failure("Connection error. Status: " + xhr.status + ". Response: " + xhr.responseText);
+                                    }
                                 }
                             }
                         }
