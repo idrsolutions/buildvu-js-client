@@ -2,11 +2,14 @@
 
 Convert PDF to HTML5 or SVG with JavaScript, using the BuildVu JavaScript Client to interact with IDRsolutions' [BuildVu Microservice Example](https://github.com/idrsolutions/buildvu-microservice-example).
 
-The BuildVu Microservice Example is an open source project that allows you to convert PDF to HTML5 or SVG by running [BuildVu](https://www.idrsolutions.com/buildvu/) as an online service.
+The BuildVu Microservice Example is an open source project that allows you to convert PDF to HTML5 or SVG by running [BuildVu](https://www.idrsolutions.com/buildvu/) as an online service. 
+
+IDR Solutions offer a free trial service for running BuildVu with JavaScript, more infomation on this can be found [here]. (https://www.idrsolutions.com/buildvu/convert-pdf-in-javascript/)
+
 
 -----
 
-# Installation
+# Installation #
 
 ```
 <script src="path/to/buildvu-client.js" type="text/javascript"></script>
