@@ -9,7 +9,7 @@ IDRsolutions offer a free trial service for running BuildVu with JavaScript, mor
 
 -----
 
-# Installation #
+# Installation
 
 ```
 <script src="path/to/buildvu-client.js" type="text/javascript"></script>
