@@ -31,10 +31,16 @@ var url = document.getElementById('url-input').value;
 //Download is used when the server downloads from the url
 var input = file ? BuildVuClient.UPLOAD : BuildVuClient.DOWNLOAD;
 
+//Authentication values to use if require, ignored if not required
+var username = document.getElementById('username-input').value;
+var password = document.getElementById('password-input').value;
+
 BuildVuClient.convert({
     endpoint: endpoint,
     //Parameters are the API parameters that will be sent to the server
     //See https://github.com/idrsolutions/buildvu-microservice-example/blob/master/API.md
+    username: username,
+    password: password,
     parameters: {
         input: input,
         file: file,

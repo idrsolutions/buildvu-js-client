@@ -110,7 +110,19 @@
                         }
                     };
 
-                    xhr.open("POST", params.endpoint + "buildvu", true);
+                    if (params.username || params.password) {
+                        if (!params.username) {
+                            throw Error('Password provided but username is missing');
+                        }
+
+                        if (!params.password) {
+                            throw Error('Username provided but password is missing');
+                        }
+                        xhr.open("POST", params.endpoint + "buildvu", true, params.username, params.password);
+                    } else {
+                        xhr.open("POST", params.endpoint + "buildvu", true);
+                    }
+
                     var data = new FormData();
 
                     if (params.parameters) {

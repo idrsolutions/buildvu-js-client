@@ -14,21 +14,27 @@
 </head>
 <body>
 
-    <div class="input-div">
-        <span>Convert from local file:</span>
-        <input id="file" type="file" />
-        <br/><br/>
-        <span>Convert file from url:</span>
-        <input id="url" type="text" />
-        <br/><br/>
-        <span>[Optional] Url for a callback request:</span>
-        <input id="callbackUrl" type="text" />
-    </div>
-    <div class="input-div">
-        <input id="submit" type="submit" value="Process File" />
-        <input id="clear" type="button" value="Clear" />
-    </div>
-    <div id="consoleDiv" style="font-family: 'Courier New', Courier, monospace"></div>
+<div class="input-div">
+    <span>Convert from local file:</span>
+    <input id="file" type="file" />
+    <br/><br/>
+    <span>Convert file from url:</span>
+    <input id="url" type="text" />
+    <br/><br/>
+    <span>Username:</span>
+    <input id="username" type="text" />
+    <br/><br/>
+    <span>Password:</span>
+    <input id="password" type="text" />
+    <br/><br/>
+    <span>[Optional] Url for a callback request:</span>
+    <input id="callbackUrl" type="text" />
+</div>
+<div class="input-div">
+    <input id="submit" type="submit" value="Process File" />
+    <input id="clear" type="button" value="Clear" />
+</div>
+<div id="consoleDiv" style="font-family: 'Courier New', Courier, monospace"></div>
 
 
 <script type="text/javascript">
@@ -64,8 +70,10 @@
         var url = document.getElementById('url').value;
         var file = document.getElementById('file').files[0];
         var callbackUrl = document.getElementById('callbackUrl').value;
+        var username = document.getElementById('username').value;
+        var password = document.getElementById('password').value;
         var input = file ? BuildVuClient.UPLOAD : BuildVuClient.DOWNLOAD;
-        
+
         if (!((file !== undefined && file.name) || url)) {
             writeMessage('No file input!');
             return;
@@ -73,6 +81,8 @@
 
         BuildVuClient.convert({
             endpoint: endpoint,
+            username: username,
+            password: password,
             parameters: {
                 input: input,
                 file: file,
