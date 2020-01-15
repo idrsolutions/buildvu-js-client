@@ -17,7 +17,7 @@
 (function () {
     window.BuildVuClient = (function () {
 
-        var progress, success, failure;
+        var progress, success, failure, username, password;
 
         var doPoll = function (uuid, endpoint) {
             var req, retries = 0;
@@ -51,7 +51,13 @@
                             req = null;
                         }
                     };
-                    req.open("GET", endpoint + "buildvu" + "?uuid=" + uuid , true);
+
+                    if (username && password) {
+                        req.open("GET", endpoint + "buildvu" + "?uuid=" + uuid , true, username, password);
+                    } else {
+                        req.open("GET", endpoint + "buildvu" + "?uuid=" + uuid , true);
+                    }
+
                     req.send();
                 }
             }, 500);
@@ -113,16 +119,20 @@
                     if (params.username || params.password) {
                         if (!params.username) {
                             throw Error('Password provided but username is missing');
+                        } else {
+                            username = params.username;
                         }
 
                         if (!params.password) {
                             throw Error('Username provided but password is missing');
+                        } else {
+                            password = params.password;
                         }
-                        xhr.open("POST", params.endpoint + "buildvu", true, params.username, params.password);
+
+                        xhr.open("POST", params.endpoint + "buildvu", true, username, password);
                     } else {
                         xhr.open("POST", params.endpoint + "buildvu", true);
                     }
-
                     var data = new FormData();
 
                     if (params.parameters) {
