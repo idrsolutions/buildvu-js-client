@@ -52,10 +52,11 @@
                         }
                     };
 
+                    req.open("GET", endpoint + "buildvu" + "?uuid=" + uuid , true);
+
                     if (username && password) {
-                        req.open("GET", endpoint + "buildvu" + "?uuid=" + uuid , true, username, password);
-                    } else {
-                        req.open("GET", endpoint + "buildvu" + "?uuid=" + uuid , true);
+                        req.withCredentials = true;
+                        req.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
                     }
 
                     req.send();
@@ -116,6 +117,8 @@
                         }
                     };
 
+                    xhr.open("POST", params.endpoint + "buildvu", true);
+
                     if (params.username || params.password) {
                         if (!params.username) {
                             throw Error('Password provided but username is missing');
@@ -129,10 +132,10 @@
                             password = params.password;
                         }
 
-                        xhr.open("POST", params.endpoint + "buildvu", true, username, password);
-                    } else {
-                        xhr.open("POST", params.endpoint + "buildvu", true);
+                        xhr.withCredentials = true;
+                        xhr.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
                     }
+
                     var data = new FormData();
 
                     if (params.parameters) {
