@@ -1,3 +1,6 @@
+# THIS PACKAGE HAS BEEN DEPRECATED #
+Future development has been directed to the [idrsolutions client](https://github.com/idrsolutions/idrsolutions-js-client), which can be used for the same purpose. This package will receive no more updates. 
+
 # BuildVu JavaScript Client #
 
 Convert PDF to HTML5 or SVG with JavaScript, using the BuildVu JavaScript Client to interact with IDRsolutions' [BuildVu Microservice Example](https://github.com/idrsolutions/buildvu-microservice-example).
